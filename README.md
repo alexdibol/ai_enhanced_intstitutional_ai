@@ -6,6 +6,10 @@
 Judge Business School, University of Cambridge  
 MFin Pedagogical Edition · July 2026
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
+Copyright © 2026 Alejandro Reynoso. Released under the [MIT License](./LICENSE).
+
 ---
 
 ## Overview
@@ -203,6 +207,7 @@ ai_enhanced_intstitutional_ai/
 │   ├── NB01_Candidate_Knowledge.ipynb
 │   ├── ...
 │   └── NB22_Poisoned_Edge_Dependency_Reversal.ipynb
+├── LICENSE
 └── README.md
 ```
 
@@ -291,6 +296,21 @@ evaluation, reviewer-time accounting, and prospective testing.
 
 ---
 
+## License
+
+Copyright © 2026 Alejandro Reynoso.
+
+This repository is released under the **MIT License**. See the [LICENSE](./LICENSE)
+file for the full text. In short, you may use, copy, modify, and redistribute
+this material, including for commercial purposes, provided that the copyright
+notice and permission notice are preserved in all copies or substantial
+portions. The material is provided "as is", without warranty of any kind.
+
+Attribution beyond the license text is appreciated; see
+[Suggested citation](#suggested-citation) above.
+
+---
+
 ## Author
 
 **Alejandro Reynoso**  
@@ -298,3 +318,7 @@ Judge Business School, University of Cambridge
 
 This repository forms part of the **Integrated Autonomous Intelligence**
 research and teaching series.
+
+---
+
+Copyright © 2026 Alejandro Reynoso · [MIT License](./LICENSE)
