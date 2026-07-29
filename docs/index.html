@@ -1,1 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI-Enhanced Institutional Knowledge — papers and executable notebook curriculum by Alejandro Reynoso.">
+  <title>AI-Enhanced Institutional Knowledge</title>
+  <style>
+    :root {
+      --navy:#071d35; --blue:#123f68; --ink:#152231; --muted:#607080;
+      --paper:#f7f5ef; --white:#fff; --gold:#c9a34c; --line:#d9d5ca;
+      --soft:#edf2f5; --shadow:0 16px 42px rgba(7,29,53,.12);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Inter,Segoe UI,Arial,sans-serif}
+    a{color:inherit}
+    .wrap{width:min(1180px,calc(100% - 40px));margin:auto}
+    .top{position:sticky;top:0;z-index:20;background:rgba(7,29,53,.96);backdrop-filter:blur(10px);color:#fff;border-bottom:1px solid rgba(255,255,255,.14)}
+    .top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:66px;gap:20px}
+    .brand{font:700 14px/1.2 Georgia,serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+    nav{display:flex;gap:22px;font-size:13px}
+    nav a{text-decoration:none;color:#dbe5ed}
+    nav a:hover{color:#fff}
+    .hero{background:linear-gradient(130deg,rgba(7,29,53,.98),rgba(18,63,104,.94));color:#fff;padding:96px 0 88px;position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;width:520px;height:520px;border:1px solid rgba(201,163,76,.28);border-radius:50%;right:-160px;top:-250px;box-shadow:0 0 0 70px rgba(201,163,76,.06),0 0 0 140px rgba(201,163,76,.035)}
+    .eyebrow{color:#e1c476;text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:800}
+    h1,h2,h3{font-family:Georgia,"Times New Roman",serif}
+    h1{font-size:clamp(42px,7vw,76px);line-height:1.02;max-width:900px;margin:14px 0 22px;font-weight:500;letter-spacing:-.025em}
+    .lead{font:21px/1.55 Georgia,serif;max-width:790px;color:#dbe5ed}
+    .byline{margin-top:28px;color:#aebdca;font-size:14px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border:1px solid var(--gold);text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.03em}
+    .btn.gold{background:var(--gold);color:var(--navy)}
+    .btn.ghost{color:#fff}
+    section{padding:78px 0}
+    section.white{background:#fff}
+    h2{font-size:clamp(32px,4vw,48px);line-height:1.12;margin:8px 0 18px;color:var(--navy);font-weight:500}
+    .intro{max-width:800px;color:var(--muted);font-size:18px}
+    .pipeline{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:38px}
+    .step{background:#fff;padding:22px 18px;min-height:150px}
+    .step b{display:block;color:var(--gold);font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+    .step span{font-family:Georgia,serif;color:var(--navy);font-size:18px}
+    .feature{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:stretch;margin-top:38px}
+    .main-paper,.facts{background:#fff;border-top:4px solid var(--gold);box-shadow:var(--shadow);padding:34px}
+    .main-paper h3{font-size:29px;color:var(--navy);margin:0 0 10px}
+    .main-paper p{color:var(--muted)}
+    .facts{background:var(--navy);color:#fff;border-top-color:var(--blue)}
+    .facts div{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+    .facts b{font-size:26px;font-family:Georgia,serif;color:#e1c476}
+    .facts span{font-size:13px;color:#c5d0d9;text-align:right}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:22px;margin-bottom:28px}
+    .search{width:min(360px,100%);padding:12px 14px;border:1px solid var(--line);background:#fff;font:inherit}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .card{background:#fff;border:1px solid var(--line);padding:24px;display:flex;flex-direction:column;min-height:190px}
+    .card:hover{border-color:#b99b55;box-shadow:0 10px 26px rgba(7,29,53,.08)}
+    .card .tag{font-size:11px;color:#8a6b27;text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+    .card h3{font-size:22px;line-height:1.25;color:var(--navy);margin:8px 0}
+    .card p{color:var(--muted);font-size:14px;margin:0 0 18px}
+    .links{display:flex;flex-wrap:wrap;gap:14px;margin-top:auto}
+    .links a{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);text-decoration:none}
+    .links a:hover{text-decoration:underline}
+    .stage{margin:34px 0 12px;padding:13px 0;border-bottom:2px solid var(--navy);color:var(--navy);font:600 23px Georgia,serif}
+    .directory{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .dir{background:var(--soft);border-left:3px solid var(--gold);padding:18px;text-decoration:none}
+    .dir b{display:block;color:var(--navy)}
+    .dir small{color:var(--muted)}
+    footer{background:var(--navy);color:#cad5de;padding:46px 0;font-size:13px}
+    footer .wrap{display:flex;justify-content:space-between;gap:30px}
+    footer a{color:#fff}
+    .hidden{display:none!important}
+    @media(max-width:900px){
+      .pipeline{grid-template-columns:repeat(3,1fr)}
+      .feature,.grid{grid-template-columns:1fr}
+      .directory{grid-template-columns:repeat(2,1fr)}
+      nav{display:none}
+    }
+    @media(max-width:560px){
+      .wrap{width:min(100% - 26px,1180px)}
+      .hero{padding:68px 0}
+      section{padding:56px 0}
+      .pipeline,.directory{grid-template-columns:1fr}
+      .section-head,footer .wrap{display:block}
+      .search{margin-top:16px}
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="#top">AI-Enhanced Institutional Knowledge</a>
+      <nav aria-label="Primary">
+        <a href="#architecture">Architecture</a>
+        <a href="#papers">Papers</a>
+        <a href="#notebooks">Notebooks</a>
+        <a href="#repository">Repository</a>
+      </nav>
+    </div>
+  </header>
 
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">MFin Pedagogical Edition · July 2026</div>
+        <h1>AI-Enhanced Institutional Knowledge</h1>
+        <p class="lead">From protected knowledge vaults to governed cognitive evolution: a complete research and classroom pipeline for integrating AI into institutional processes without surrendering control of proprietary knowledge.</p>
+        <p class="byline">Alejandro Reynoso · Judge Business School, University of Cambridge</p>
+        <div class="actions">
+          <a class="btn gold" href="AI%20ENHANCED%20INSTITUTIONAL%20KNOWLEDGE.pdf">Read the main paper</a>
+          <a class="btn ghost" href="https://github.com/alexdibol/ai_enhanced_intstitutional_ai">View repository</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="wrap">
+        <div class="eyebrow">The institutional pipeline</div>
+        <h2>Governed knowledge, not an unrestricted model connection</h2>
+        <p class="intro">The strategic unit is the full institutional system: controlled sources, canonical objects, explicit navigation, candidate generation, authorization, write-back, benchmarking, and dependency-aware reversal.</p>
+        <div class="pipeline">
+          <div class="step"><b>01</b><span>Protected source vaults</span></div>
+          <div class="step"><b>02</b><span>Canonical objects and graph</span></div>
+          <div class="step"><b>03</b><span>Governed model context</span></div>
+          <div class="step"><b>04</b><span>Candidate knowledge and approval</span></div>
+          <div class="step"><b>05</b><span>Recursive write-back and selection</span></div>
+          <div class="step"><b>06</b><span>Audit, benchmarking and reversal</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="white" id="papers">
+      <div class="wrap">
+        <div class="eyebrow">The intellectual spine</div>
+        <h2>Main and supporting papers</h2>
+        <div class="feature">
+          <article class="main-paper">
+            <div class="eyebrow">Main paper</div>
+            <h3>AI-Enhanced Institutional Knowledge</h3>
+            <p>The synthesis paper develops the complete four-legged architecture—from protected vaults and canonical representation to governed cognitive evolution, evidence portfolios, advanced selection, institutional validation, and reversal.</p>
+            <div class="links">
+              <a href="AI%20ENHANCED%20INSTITUTIONAL%20KNOWLEDGE.pdf">Open PDF</a>
+              <a href="https://github.com/alexdibol/ai_enhanced_intstitutional_ai/blob/main/AI%20ENHANCED%20INSTITUTIONAL%20KNOWLEDGE.pdf">View on GitHub</a>
+            </div>
+          </article>
+          <aside class="facts">
+            <div><b>1</b><span>Synthesis paper</span></div>
+            <div><b>5</b><span>Supporting papers</span></div>
+            <div><b>22</b><span>Executable notebooks</span></div>
+            <div><b>6</b><span>Cumulative stages</span></div>
+          </aside>
+        </div>
+
+        <div class="grid" style="margin-top:28px">
+          <article class="card">
+            <span class="tag">Governance</span><h3>Governance Before Cognition</h3>
+            <p>Candidate versus authoritative knowledge; eligibility, approval, provenance, quarantine, supersession, auditability, and reversal.</p>
+            <div class="links"><a href="supporting_papers/GOVERNANCE%20BEFORE%20COGNITION.pdf">Open PDF</a><a href="https://github.com/alexdibol/ai_enhanced_intstitutional_ai/blob/main/supporting_papers/GOVERNANCE%20BEFORE%20COGNITION.pdf">GitHub</a></div>
+          </article>
+          <article class="card">
+            <span class="tag">Architecture</span><h3>Knowledge Engineering</h3>
+            <p>How document vaults become typed, governed, evolving corporate intelligence; companion to NB08–NB12.</p>
+            <div class="links"><a href="supporting_papers/KNOWLEDGE%20ENGINEERING.pdf">Open PDF</a><a href="https://github.com/alexdibol/ai_enhanced_intstitutional_ai/blob/main/supporting_papers/KNOWLEDGE%20ENGINEERING.pdf">GitHub</a></div>
+          </article>
+          <article class="card">
+            <span class="tag">Navigation</span><h3>Navigation-Conditioned Knowledge Evolution</h3>
+            <p>Why retrieval is not neutral and how navigation policy changes context, write-back, and future graph topology.</p>
+            <div class="links"><a href="supporting_papers/NAVIGATION%20CONDITIONED%20KNOWLEDGE%20EVOLUTION.pdf">Open PDF</a><a href="https://github.com/alexdibol/ai_enhanced_intstitutional_ai/blob/main/supporting_papers/NAVIGATION%20CONDITIONED%20KNOWLEDGE%20EVOLUTION.pdf">GitHub</a></div>
+          </article>
+          <article class="card">
+            <span class="tag">Institutional inquiry</span><h3>Question-Induced Knowledge Architecture</h3>
+            <p>How purposeful questions induce conditional claims, relationships, scenarios, decisions, and supersession structures. Shared companion: NB12.</p>
+            <div class="links"><a href="supporting_papers/QUESTION%20INDUCED%20KNOWLEDGE%20ARCHITECTURE.pdf">Open PDF</a><a href="https://github.com/alexdibol/ai_enhanced_intstitutional_ai/blob/main/supporting_papers/QUESTION%20INDUCED%20KNOWLEDGE%20ARCHITECTURE.pdf">GitHub</a></div>
+          </article>
+          <article class="card">
+            <span class="tag">Advanced selection</span><h3>The Quantum Brain</h3>
+            <p>Path encoding, quantum walks, QUBO/QAOA context portfolios, and quantum-conditioned deliberation alongside strong classical baselines.</p>
+            <div class="links"><a href="supporting_papers/THE%20QUANTUM%20BRAIN.pdf">Open PDF</a><a href="https://github.com/alexdibol/ai_enhanced_intstitutional_ai/blob/main/supporting_papers/THE%20QUANTUM%20BRAIN.pdf">GitHub</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="notebooks">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Executable curriculum</div><h2>NB01–NB22</h2></div>
+          <input class="search" id="search" type="search" placeholder="Filter notebooks…" aria-label="Filter notebooks">
+        </div>
+        <p class="intro">Run in numerical order. “GitHub” opens the source; “Open in Colab” starts the corresponding live notebook directly.</p>
+
+        <h3 class="stage">Stage 1 · Govern knowledge before admitting it</h3>
+        <div class="grid notebook-grid">
+          <article class="card notebook"><span class="tag">NB01</span><h3>Candidate Knowledge</h3><p>Generation is not admission.</p><div class="links"><a href="notebooks/NB01_Candidate_Knowledge.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB01_Candidate_Knowledge.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB02</span><h3>Governance Pipeline</h3><p>Eligibility, policy checks, quarantine, and reason-coded queues.</p><div class="links"><a href="notebooks/NB02_Governance_Pipeline.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB02_Governance_Pipeline.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB03</span><h3>Human Approval and Provenance</h3><p>Machine validation is not institutional authorization.</p><div class="links"><a href="notebooks/NB03_Human_Approval_and_Provenance.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB03_Human_Approval_and_Provenance.ipynb">Open in Colab</a></div></article>
+        </div>
+
+        <h3 class="stage">Stage 2 · Discover and control the corpus</h3>
+        <div class="grid notebook-grid">
+          <article class="card notebook"><span class="tag">NB04</span><h3>Corpus Discovery</h3><p>Inventory before interpretation.</p><div class="links"><a href="notebooks/NB04_Corpus_Discovery.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB04_Corpus_Discovery.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB05</span><h3>Metadata Extraction</h3><p>Location is not identity; every claim needs a locator.</p><div class="links"><a href="notebooks/NB05_Metadata_Extraction.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB05_Metadata_Extraction.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB06</span><h3>Corpus Manifest</h3><p>Storage presence is not evidence of authority or permission.</p><div class="links"><a href="notebooks/NB06_Corpus_Manifest.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB06_Corpus_Manifest.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB07</span><h3>Integrity and Validation</h3><p>Hashes, duplicates, fingerprints, and exception reporting.</p><div class="links"><a href="notebooks/NB07_Integrity_and_Validation.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB07_Integrity_and_Validation.ipynb">Open in Colab</a></div></article>
+        </div>
+
+        <h3 class="stage">Stage 3 · Build governed knowledge architecture</h3>
+        <div class="grid notebook-grid">
+          <article class="card notebook"><span class="tag">NB08</span><h3>CKO Builder</h3><p>Convert documents into canonical, addressable knowledge objects.</p><div class="links"><a href="notebooks/NB08_CKO_Builder.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB08_CKO_Builder.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB09</span><h3>Relationship Graph</h3><p>Add typed and attributable relations.</p><div class="links"><a href="notebooks/NB09_Relationship_Graph.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB09_Relationship_Graph.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB10</span><h3>CKO Registry</h3><p>Make object identity and lifecycle reproducible.</p><div class="links"><a href="notebooks/NB10_CKO_Registry.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB10_CKO_Registry.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB11</span><h3>CKO Validation and Statistics</h3><p>Detect broken edges, orphans, invalid endpoints, and implausible structure.</p><div class="links"><a href="notebooks/NB11_CKO_Validation_and_Statistics.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB11_CKO_Validation_and_Statistics.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB12</span><h3>Question-Induced Knowledge Architecture</h3><p>Turn questions, scenarios, and shocks into conditional claims, relations, decisions, and supersession events.</p><div class="links"><a href="notebooks/NB12_Question%20Induced%20Knowledge%20Architecture.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB12_Question%20Induced%20Knowledge%20Architecture.ipynb">Open in Colab</a></div></article>
+        </div>
+
+        <h3 class="stage">Stage 4 · Make navigation explicit and govern evolution</h3>
+        <div class="grid notebook-grid">
+          <article class="card notebook"><span class="tag">NB13</span><h3>Graph Navigation Policy Laboratory</h3><p>Retrieval is a policy, not a neutral lookup.</p><div class="links"><a href="notebooks/NB13_Graph_Navigation_Policy_Laboratory.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB13_Graph_Navigation_Policy_Laboratory.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB14</span><h3>Counterfactual Context and Answer Comparison</h3><p>The same graph can yield different contexts and answers.</p><div class="links"><a href="notebooks/NB14_Counterfactual_Context_and_Answer_Comparison.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB14_Counterfactual_Context_and_Answer_Comparison.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB15</span><h3>Recursive Write-Back and Topological Divergence</h3><p>Today’s route can become tomorrow’s map.</p><div class="links"><a href="notebooks/NB15_Recursive_Write_Back_and_Topological_Divergence.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB15_Recursive_Write_Back_and_Topological_Divergence.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB16</span><h3>Navigation Governance, Audit and Policy Selection</h3><p>Reconstruct how evidence was selected—not merely what was cited.</p><div class="links"><a href="notebooks/NB16_Navigation_Governance_Audit_and_Policy_Selection.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB16_Navigation_Governance_Audit_and_Policy_Selection.ipynb">Open in Colab</a></div></article>
+        </div>
+
+        <h3 class="stage">Stage 5 · Construct and select evidence portfolios</h3>
+        <div class="grid notebook-grid">
+          <article class="card notebook"><span class="tag">NB17</span><h3>Quantum Brain Architecture and Path Encoding</h3><p>Treat admissible graph paths as evidence objects.</p><div class="links"><a href="notebooks/NB17_Quantum_Brain_Architecture_and_Path_Encoding.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB17_Quantum_Brain_Architecture_and_Path_Encoding.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB18</span><h3>Quantum Walks Through a Knowledge Graph</h3><p>Compare classical and quantum-induced navigation distributions.</p><div class="links"><a href="notebooks/NB18_Quantum_Walks_Through_a_Knowledge_Graph.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB18_Quantum_Walks_Through_a_Knowledge_Graph.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB19</span><h3>QAOA and QUBO Context Portfolios</h3><p>Select diverse evidence under budget and compare with strong classical baselines.</p><div class="links"><a href="notebooks/NB19_QAOA_and_QUBO_Context_Portfolios.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB19_QAOA_and_QUBO_Context_Portfolios.ipynb">Open in Colab</a></div></article>
+        </div>
+
+        <h3 class="stage">Stage 6 · Deliberate, benchmark and reverse</h3>
+        <div class="grid notebook-grid">
+          <article class="card notebook"><span class="tag">NB20</span><h3>Quantum-Conditioned Multi-Agent Deliberation</h3><p>Give distinct roles explicit evidence boundaries and synthesis rules.</p><div class="links"><a href="notebooks/NB20_Quantum_Conditioned_Multi_Agent_Deliberation.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB20_Quantum_Conditioned_Multi_Agent_Deliberation.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB21</span><h3>Governed Write-Back, Noise and Advantage Benchmarking</h3><p>Stress the pipeline and stop claims where the evidence stops.</p><div class="links"><a href="notebooks/NB21_Governed_Write_Back_Noise_and_Advantage_Benchmarking.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB21_Governed_Write_Back_Noise_and_Advantage_Benchmarking.ipynb">Open in Colab</a></div></article>
+          <article class="card notebook"><span class="tag">NB22</span><h3>Poisoned-Edge Dependency Reversal</h3><p>Trace and reverse every downstream dependency of an approved-but-wrong relation.</p><div class="links"><a href="notebooks/NB22_Poisoned_Edge_Dependency_Reversal.ipynb">GitHub</a><a href="https://colab.research.google.com/github/alexdibol/ai_enhanced_intstitutional_ai/blob/main/notebooks/NB22_Poisoned_Edge_Dependency_Reversal.ipynb">Open in Colab</a></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="white" id="repository">
+      <div class="wrap">
+        <div class="eyebrow">Complete directory access</div>
+        <h2>Repository guides and directories</h2>
+        <p class="intro">Every content-bearing directory and guide in the live repository is linked below.</p>
+        <div class="directory" style="margin-top:28px">
+          <a class="dir" href="https://github.com/alexdibol/ai_enhanced_intstitutional_ai"><b>Repository root</b><small>All files and commit history</small></a>
+          <a class="dir" href="README.md"><b>Root README</b><small>Research and course guide</small></a>
+          <a class="dir" href="docs/readme.md"><b>docs/</b><small>Documentation directory guide</small></a>
+          <a class="dir" href="notebooks/"><b>notebooks/</b><small>22 executable laboratories</small></a>
+          <a class="dir" href="notebooks/readme.md"><b>Notebook README</b><small>Notebook-specific instructions</small></a>
+          <a class="dir" href="supporting_papers/"><b>supporting_papers/</b><small>Five focused monographs</small></a>
+          <a class="dir" href="supporting_papers/readme.md"><b>Supporting papers README</b><small>Paper directory guide</small></a>
+          <a class="dir" href="https://github.com/alexdibol/ai_enhanced_intstitutional_ai/archive/refs/heads/main.zip"><b>Download repository</b><small>Complete ZIP archive</small></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div><strong>AI-Enhanced Institutional Knowledge</strong><br>Integrated Autonomous Intelligence research and teaching series.</div>
+      <div>© 2026 Alejandro Reynoso · <a href="https://github.com/alexdibol/ai_enhanced_intstitutional_ai">GitHub repository</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const search = document.getElementById("search");
+    search.addEventListener("input", () => {
+      const q = search.value.toLowerCase().trim();
+      document.querySelectorAll(".notebook").forEach(card => {
+        card.classList.toggle("hidden", q && !card.textContent.toLowerCase().includes(q));
+      });
+      document.querySelectorAll(".stage").forEach(stage => {
+        const grid = stage.nextElementSibling;
+        stage.classList.toggle("hidden", q && [...grid.children].every(card => card.classList.contains("hidden")));
+      });
+    });
+  </script>
+</body>
+</html>
